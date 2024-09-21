@@ -7,10 +7,11 @@ from pdf2image import convert_from_path
 # Initialize Flask app
 app = Flask(__name__)
 
-# Set the path to the Tesseract executable
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
-
-# Ensure uploads directory exists
+if os.getenv('RENDER'):
+    pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
+else:
+    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'# Ensure uploads directory exists
+    
 if not os.path.exists('uploads'):
     os.makedirs('uploads')
 
